@@ -6,6 +6,7 @@ import Details from './app/screens/Details';
 import { useEffect, useState } from 'react';
 import { User, onAuthStateChanged } from 'firebase/auth';
 import { FIREBASE_AUTH } from './FirebaseConfig';
+import Register from './app/screens/Register';
 
 const Stack = createNativeStackNavigator();
 
@@ -16,6 +17,14 @@ function InsideLayout() {
     <InsideStack.Navigator>
       <InsideStack.Screen name='Ecos TEST' component={List} /> 
       <InsideStack.Screen name='details' component={Details} /> 
+    </InsideStack.Navigator>
+  );
+}
+function loginRegister() {
+  return (
+    <InsideStack.Navigator>
+      <InsideStack.Screen name='Login' component={Login} options={{headerShown : false}} /> 
+      <InsideStack.Screen name='Register' component={Register} options={{headerShown : false}} /> 
     </InsideStack.Navigator>
   );
 }
@@ -38,7 +47,7 @@ export default function App() {
           <Stack.Screen name='My todo' component={InsideLayout} options={{headerShown : false}} ></Stack.Screen>
         ) :
         (
-          <Stack.Screen name='Login' component={Login} options={{headerShown : false}} ></Stack.Screen>
+          <Stack.Screen name='Login' component={loginRegister} options={{headerShown : false}} ></Stack.Screen>
         )
       }
         

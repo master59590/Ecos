@@ -2,8 +2,15 @@ import { TouchableOpacity , View, Text , StyleSheet, TextInput, ActivityIndicato
 import React, { useState } from 'react'
 import { FIREBASE_AUTH } from '../../FirebaseConfig';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { NavigationProp } from '@react-navigation/native'
 
-const Login = () => {
+
+interface RouterProps {
+    navigation : NavigationProp<any, any>;
+}
+
+
+const Login = ({navigation} : RouterProps) => {
     const [email , setEmail] = useState('') ;
     const [password , setPassword] = useState('') ;
     const [loading , setLoading] = useState(false) ;
@@ -19,26 +26,12 @@ const Login = () => {
             alert('Login Success')
         }catch (error: any) {
             console.log(error);
-            alert('Sign In failed: ' + error.message);
+            alert('Login Failed: ' + error.message);
         }finally {
             setLoading(false);
         }
     }
-    const signUp = async () => {
-        setLoading(true) ;
-        try {
-            const res = await createUserWithEmailAndPassword(auth ,email, password);
-            console.log(res); 
-            alert('Check your email!')
-        }catch (error: any) {
-            console.log(error);
-            alert('Sign In failed: ' + error.message);
-        }finally {
-            setLoading(false);
-        }
-
-      
-    }
+    
   return (
     <View  style={styles.container}>
         <KeyboardAvoidingView behavior='padding'>
@@ -52,7 +45,7 @@ const Login = () => {
                 <Text style={styles.btnText}>Login</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.btnRegister} onPress={signUp}>
+            <TouchableOpacity style={styles.btnRegister} onPress={() => navigation.navigate('Register')}>
                 <Text style={styles.btnTextRegister}>Create account ?</Text>
             </TouchableOpacity>
              
