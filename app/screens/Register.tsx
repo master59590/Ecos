@@ -22,7 +22,10 @@ const Register = ({navigation} : RouterProps) => {
         try {
             const res = await createUserWithEmailAndPassword(auth ,email, password);
             console.log(res); 
+            FIREBASE_AUTH.signOut()
+            navigation.goBack()
             alert('Register Success')
+            
         }catch (error: any) {
             console.log(error);
             alert('Register Failed: ' + error.message);
