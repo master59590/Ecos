@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { FIREBASE_AUTH } from '../../FirebaseConfig';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { NavigationProp } from '@react-navigation/native'
+import { Image } from 'react-native';
 
 
 interface RouterProps {
@@ -35,18 +36,26 @@ const Login = ({navigation} : RouterProps) => {
   return (
     <View  style={styles.container}>
         <KeyboardAvoidingView behavior='padding'>
-        <Text style={styles.logo}>ECOS</Text>
-        <Text style={{fontSize:20 , textAlign:'center' , marginBottom : 30  , color : '#fff'}}>EcoCycle Solutions</Text>
+        <Text style={styles.logo}>เข้าสู่ระบบ</Text>
+        <Text style={{fontSize:12 , textAlign:'center' , marginBottom : 30  , color : '#dark'}}>Yukya เป็นแอปพลิเคชันสำหรับเตือนการรับประทานยา</Text>
+
         <View style={styles.containerLogin}>
-            <TextInput value={email} style={styles.input} placeholder='Email' autoCapitalize='none' onChangeText={(text) => setEmail(text)}></TextInput>
-            <TextInput value={password} style={styles.input} placeholder='Password' autoCapitalize='none' onChangeText={(text) => setPassword(text)} secureTextEntry={true}></TextInput>
+            <Text style={styles.label}>Email ของบัญชีผู้ใช้</Text>
+            <TextInput value={email} style={styles.input} placeholder='กรอก Email ของผู้ใช้' 
+            autoCapitalize='none' onChangeText={(text) => setEmail(text)}></TextInput>
+            <Text style={styles.label2}>รหัสผ่านบัญชีผู้ใช้</Text>
+            <TextInput value={password} style={styles.input} placeholder='กรอกรหัสผ่านบัญชีผู้ใช้' 
+            autoCapitalize='none' onChangeText={(text) => setPassword(text)} secureTextEntry={true}></TextInput>
             {loading ? <ActivityIndicator size='large' color="#000ff" />: <>
             <TouchableOpacity style={styles.btn} onPress={signIn}>
-                <Text style={styles.btnText}>Login</Text>
+                <Text style={styles.btnText}>เข้าสู่ระบบ</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.btnRegister} onPress={() => navigation.navigate('Register')}>
-                <Text style={styles.btnTextRegister}>Create account ?</Text>
+            <Text>
+                <Text >ยังไม่มีบัญชีผู้ใช้ ? </Text>
+                <Text style={styles.btnTextRegister}>สมัครสมาชิก</Text>
+            </Text>
             </TouchableOpacity>
              
             </>
@@ -65,9 +74,26 @@ const styles = StyleSheet.create({
         
         flex : 1,
         justifyContent: 'center',
-        backgroundColor : '#181818',
+        backgroundColor : '#cbf2f5',
         position : 'relative'
     },
+    label: {
+        alignSelf: "flex-start", // จัดตำแหน่งให้ชิดซ้าย
+        marginLeft: "13%", // เพิ่มระยะห่างจากขอบซ้าย
+        fontSize: 12,
+        fontFamily: "Inter_400Regular",
+        marginBottom: 5, // ระยะห่างระหว่างข้อความกับ TextInput
+        color: "#333",
+      },
+      label2: {
+        alignSelf: "flex-start", // จัดตำแหน่งให้ชิดซ้าย
+        marginLeft: "13%", // เพิ่มระยะห่างจากขอบซ้าย
+        fontSize: 12,
+        fontFamily: "Inter_400Regular",
+        marginTop: 20,
+        marginBottom: 5, // ระยะห่างระหว่างข้อความกับ TextInput
+        color: "#333",
+      },
     containerLogin : {
         display : 'flex',
         justifyContent : 'center',
@@ -76,35 +102,38 @@ const styles = StyleSheet.create({
     input : {
         marginVertical : 4 , 
         height: 50 ,
-        borderWidth : 1 ,
-        borderRadius : 10 ,
+        borderWidth : 0 ,
+        borderRadius : 20 ,
         padding : 10 , 
         backgroundColor : '#fff' , 
         width : '80%',
         
     },
     logo : {
-        fontSize : 36,
+        fontSize : 32,
         textAlign: 'center',
         fontWeight : 800 ,
-        color : 'green',
+        color : 'dark',
         marginBottom : 10 ,
     },
     btn : {
         borderWidth : 1,
-        borderColor : '#fff',
+        backgroundColor : '#00524D',
+        borderColor : '#00524D',
         width : "80%",
         display : 'flex',
         justifyContent : 'center' ,
         alignItems : 'center' ,
         height : 50 , 
-        borderRadius : 10 , 
+        borderRadius : 20 , 
         marginTop : 20
 
     },
     btnText : {
         fontSize : 16 ,
-        color : '#fff'
+        color : '#fff',
+        fontWeight : 800 ,
+
     },
     btnRegister : {
         // borderWidth : 1,
@@ -119,11 +148,13 @@ const styles = StyleSheet.create({
     },
     btnTextRegister : {
         fontSize : 16 ,
-        color : "green"
+        color : "#00524D",
+        textDecorationLine: "underline", // เพิ่มขีดเส้นใต้
+
     },
     version : {
         textAlign : 'center' ,
-        color : "#fff" , 
+        color : "#dark" , 
         position : 'absolute' ,
         bottom : 40,
         left : 30

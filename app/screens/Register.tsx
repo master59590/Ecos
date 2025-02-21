@@ -38,22 +38,30 @@ const Register = ({navigation} : RouterProps) => {
   return (
     <View  style={styles.container}>
         <KeyboardAvoidingView behavior='padding'>
-        <Text style={styles.logo}>ECOS</Text>
-        <Text style={{fontSize:20 , textAlign:'center' , marginBottom : 30  , color : '#fff'}}>EcoCycle Solutions</Text>
+        <Text style={styles.logo}>สมัครสมาชิก</Text>
+        <Text style={{fontSize:12 , textAlign:'center' , marginBottom : 30  , color : '#dark'}}> เพื่อเข้าใช้งาน YukYa แอปพลิเคชัน</Text>
+        
+        
         <View style={styles.containerLogin}>
-            <TextInput value={email} style={styles.input} placeholder='Email' autoCapitalize='none' onChangeText={(text) => setEmail(text)}></TextInput>
-
+            <Text style={styles.label}>Email ของบัญชีผู้ใช้</Text>
+            <TextInput value={email} style={styles.input} placeholder='กรอก Email ของผู้ใช้' 
+            autoCapitalize='none' onChangeText={(text) => setEmail(text)}></TextInput>
+             <Text style={styles.label}>รหัสผ่านผู้ใช้งาน</Text>
             <Controller
                 control={control}
                 name="password"
                 rules={{
                 required: 'Password is required',
-                minLength: { value: 6, message: 'Password must be at least 6 characters' },
+                minLength: { value: 6, message: 'รหัสผ่านต้องมีมากกว่า 6 ตัว' },
+                pattern: {
+                    value: /^(?=.*[A-Z]).+$/, // อย่างน้อย 1 ตัวพิมพ์ใหญ่
+                    message: 'รหัสผ่านต้องมีตัวอักษรพิมพ์ใหญ่อย่างน้อย 1 ตัว',
+                  },
                 }}
                 render={({ field: { onChange, onBlur, value } }) => (
                 <TextInput
                     style={styles.input}
-                    placeholder="Enter your password"
+                    placeholder="กรอกรหัสผ่านบัญชีผู้ใช้"
                     secureTextEntry
                     onBlur={onBlur}
                     onChangeText={onChange}
@@ -63,19 +71,20 @@ const Register = ({navigation} : RouterProps) => {
                 )}
             />
             {errors.password && <Text style={styles.error}>{errors.password.message}</Text>}
-
+            <Text style={styles.label}>กรอกรหัสผ่านบัญชีผู้ใช้อีกครั้ง</Text>
+            
             <Controller
                 control={control}
-                name="confirmPassword"
+                name="รหัสผ่านบัญชีผู้ใช้"
                 rules={{
                 required: 'Please confirm your password',
                 validate: value =>
-                    value === password || 'Passwords do not match', // ตรวจสอบความตรงกันของ password
+                    value === password || 'รหัสผ่านไม่ตรงกัน', // ตรวจสอบความตรงกันของ password
                 }}
                 render={({ field: { onChange, onBlur, value } }) => (
                 <TextInput
                     style={styles.input}
-                    placeholder="Confirm your password"
+                    placeholder="ยืนยันรหัสผ่านบัญชีผู้ใช้"
                     secureTextEntry
                     onBlur={onBlur}
                     onChangeText={onChange}
@@ -85,20 +94,22 @@ const Register = ({navigation} : RouterProps) => {
                 )}
             />
             {errors.confirmPassword && <Text style={styles.error}>{errors.confirmPassword.message}</Text>}
-
-            {/* <TextInput value={password} style={styles.input} placeholder='Password' autoCapitalize='none' onChangeText={(text) => setPassword(text)} secureTextEntry={true}></TextInput> */}
-            {/* <TextInput value={confirmPassword} style={styles.input} placeholder='Confirm Password' autoCapitalize='none' onChangeText={(text) => setConfirmPassword(text)} secureTextEntry={true}></TextInput>  */}
-
+            
             {loading ? <ActivityIndicator size='large' color="#000ff" />: <>
                 <TouchableOpacity style={styles.btn} onPress={handleSubmit(signUp)}>
                     <Text style={styles.btnText}>Register</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.btnRegister} onPress={() => navigation.goBack()}>
-                    <Text style={styles.btnTextRegister}>Already have an account?</Text>
+                    <Text>
+                        <Text >มีบัญชีผู้ใชอยู่แล้ว ? </Text>
+                        <Text style={styles.btnTextRegister}>เข้าสู่ระบบ</Text>
+                        </Text>
                 </TouchableOpacity>
             </>
             }
+                        {/* <TextInput value={password} style={styles.input} placeholder='Password' autoCapitalize='none' onChangeText={(text) => setPassword(text)} secureTextEntry={true}></TextInput> */}
+            {/* <TextInput value={confirmPassword} style={styles.input} placeholder='Confirm Password' autoCapitalize='none' onChangeText={(text) => setConfirmPassword(text)} secureTextEntry={true}></TextInput>  */}
         </View>
         </KeyboardAvoidingView>
         <Text style={styles.version}>Version 1.1</Text>
@@ -113,7 +124,7 @@ const styles = StyleSheet.create({
         
         flex : 1,
         justifyContent: 'center',
-        backgroundColor : '#181818',
+        backgroundColor : '#cbf2f5',
         position : 'relative'
     },
     containerLogin : {
@@ -121,38 +132,51 @@ const styles = StyleSheet.create({
         justifyContent : 'center',
         alignItems : 'center'
     },
+    label: {
+        alignSelf: "flex-start", // จัดตำแหน่งให้ชิดซ้าย
+        marginLeft: "13%", // เพิ่มระยะห่างจากขอบซ้าย
+        fontSize: 12,
+        fontFamily: "Inter_400Regular",
+        marginBottom: 5, // ระยะห่างระหว่างข้อความกับ TextInput
+        marginTop:5,
+        color: "#333",
+    },
     input : {
         marginVertical : 4 , 
         height: 50 ,
-        borderWidth : 1 ,
-        borderRadius : 10 ,
+        borderWidth : 0 ,
+        borderRadius : 20 ,
         padding : 10 , 
         backgroundColor : '#fff' , 
         width : '80%',
+        
         
     },
     logo : {
         fontSize : 36,
         textAlign: 'center',
         fontWeight : 800 ,
-        color : 'green',
+        color : '#dark',
         marginBottom : 10 ,
     },
     btn : {
         borderWidth : 1,
-        borderColor : '#fff',
+        backgroundColor : '#00524D',
+
+        borderColor : '#00524D',
         width : "80%",
         display : 'flex',
         justifyContent : 'center' ,
         alignItems : 'center' ,
         height : 50 , 
-        borderRadius : 10 , 
+        borderRadius : 20 , 
         marginTop : 20
 
     },
     btnText : {
         fontSize : 16 ,
-        color : '#fff'
+        color : '#fff',
+        fontWeight : 800 ,
     },
     btnRegister : {
         // borderWidth : 1,
@@ -167,11 +191,12 @@ const styles = StyleSheet.create({
     },
     btnTextRegister : {
         fontSize : 16 ,
-        color : "green"
+        color : "#00524D",
+        textDecorationLine: "underline", // เพิ่มขีดเส้นใต้
     },
     version : {
         textAlign : 'center' ,
-        color : "#fff" , 
+        color : "#dark" , 
         position : 'absolute' ,
         bottom : 40,
         left : 30
