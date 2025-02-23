@@ -16,6 +16,7 @@ import Privacy from 'assets/Privacy.svg';
 import Profile from 'assets/Profile.svg';
 import Settings from 'assets/Settings.svg';
 import { NavigationProp } from '@react-navigation/native';
+import { getAuth, signOut } from "firebase/auth";
 
 
 interface RouterProps {
@@ -29,13 +30,30 @@ export default function HomeScreen({ navigation }: RouterProps) {
       "คุณต้องการออกจากระบบใข่หรือไม่",
       [
         { text: "ไม่ใช่", style: "cancel" },
-        { text: "ใช่", onPress: () => Alert.alert("Logout", "ออกจากระบบเรียบร้อย") }
+        // { text: "ใช่", onPress: () => Alert.alert("Logout", "ออกจากระบบเรียบร้อย") }
+        { text: "ใช่", onPress: async () => 
+        {
+          try {
+            await signOut(auth);
+            Alert.alert("Logout", "ออกจากระบบเรียบร้อย");
+            navigation.navigate('Login');
+          } catch (error) {
+            console.error("เกิดข้อผิดพลาดขณะออกจากระบบ: ", error);
+          }
+        }
+        }
       ]
     );
   };
+  
+
+  const alertMaintenance = () => {
+      Alert.alert("ข้อผิดพลาด", "ปิดปรับปรุง");
+  }
+
   const router = useRouter();
 
-  
+  const auth = getAuth();
   return (
     <View style={{display: 'flex' , justifyContent: 'center' , alignItems: 'center' }} >
       <View style={styles.TopContainer}>
@@ -43,7 +61,7 @@ export default function HomeScreen({ navigation }: RouterProps) {
         <View style={styles.blankContainer}></View>
         <View style={styles.imageContainer}>
           <Image style={styles.image} source={{uri : "https://www.matichon.co.th/wp-content/uploads/2024/08/dfdfdf9-wed.jpg"}}></Image>
-          <View className='Edit' style={styles.edit} >
+          <View  style={styles.edit} >
             <Pen width={20} height={20} color="#FFFFFF"></Pen>
           </View>
         </View>
@@ -54,7 +72,7 @@ export default function HomeScreen({ navigation }: RouterProps) {
       </View>
       <View style={styles.bottomContainer}>
 
-        <TouchableOpacity onPress={() => router.push('/')} >
+        <TouchableOpacity onPress={alertMaintenance} >
           <View id='profile' style={styles.boxContent}>
             <View id='left' style={styles.left}>
               <View style={styles.icon_box}>
@@ -86,7 +104,7 @@ export default function HomeScreen({ navigation }: RouterProps) {
         </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => router.push('/')} >
+        <TouchableOpacity onPress={alertMaintenance} >
         <View id='profile' style={styles.boxContent}>
           <View id='left' style={styles.left}>
             <View style={styles.icon_box}>
@@ -102,7 +120,7 @@ export default function HomeScreen({ navigation }: RouterProps) {
         </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => router.push('/')} >
+        <TouchableOpacity onPress={alertMaintenance} >
         <View id='profile' style={styles.boxContent}>
           <View id='left' style={styles.left}>
             <View style={styles.icon_box}>
@@ -118,7 +136,7 @@ export default function HomeScreen({ navigation }: RouterProps) {
         </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => router.push('/')} >
+        <TouchableOpacity onPress={alertMaintenance} >
         <View id='profile' style={styles.boxContent}>
           <View id='left' style={styles.left}>
             <View style={styles.icon_box}>

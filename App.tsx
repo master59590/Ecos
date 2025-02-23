@@ -46,8 +46,8 @@ function InsideLayout() {
 function loginRegister() {
   return (
     <InsideStack.Navigator>
-      <InsideStack.Screen name='MedicineReminder' component={MedicineReminder} options={{headerShown : false}} /> 
-      <InsideStack.Screen name='MedicineList' component={MedicineList} options={{headerShown : false}} /> 
+      {/* <InsideStack.Screen name='MedicineReminder' component={Mainpage} options={{headerShown : false}} /> 
+      <InsideStack.Screen name='MedicineList' component={MedicineList} options={{headerShown : false}} />  */}
       <InsideStack.Screen name='Login' component={Login} options={{headerShown : false}} /> 
       <InsideStack.Screen name='Register' component={Register} options={{headerShown : false}} /> 
     </InsideStack.Navigator>

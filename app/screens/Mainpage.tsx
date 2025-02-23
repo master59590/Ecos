@@ -93,14 +93,26 @@ const Mainpage = ({ navigation }: RouterProps) => {
 
                     <View style={styles.header}>
 
-                    <TouchableOpacity onPress={() => {
-                        setActiveTab('profile');
-                        navigation.navigate('Profile')
-                        }}>
-                        <Image source={require('../../assets/gongyoopic.jpg')} style={styles.profileImage} />
-                    </TouchableOpacity>
-                        <Text style={styles.userName}>Gong Yoo</Text>
-                        <Ionicons name="ellipsis-horizontal" size={24} color="#00524D" style={styles.menuIcon} />
+                        <TouchableOpacity onPress={() => {
+                            setActiveTab('profile');
+                            navigation.navigate('Profile')
+                            }}>
+                            <Image source={require('../../assets/gongyoopic.jpg')} style={styles.profileImage} />
+                        </TouchableOpacity>
+
+                        <TouchableOpacity style={styles.userName} onPress={() => {
+                            setActiveTab('profile');
+                            navigation.navigate('Profile')
+                            }}>
+                            <Text style={styles.userName}>Gong Yoo</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity style={styles.menuIcon} onPress={() => {
+                            setActiveTab('profile');
+                            navigation.navigate('Profile')
+                            }}>
+                            <Ionicons name="ellipsis-horizontal" size={24} color="#00524D" style={styles.menuIcon} />
+                        </TouchableOpacity>
                     </View>
 
                     <View style={styles.dateSection}>
@@ -254,6 +266,8 @@ const styles = StyleSheet.create({
             fontWeight: 'bold',
             color: '#00524d',
             flex: 1,
+            paddingTop : "1.5%",
+
         },
         menuIcon: {
             padding: 5,
